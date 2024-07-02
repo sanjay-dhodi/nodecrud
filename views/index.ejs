@@ -1,0 +1,14 @@
+<%- include("includes/header") -%> <% if(data) { data.forEach(contact => { %>
+
+<div class="card">
+  <img src="<%= contact.image %>"" alt="img" />
+  <h1><%= contact.name %></h1>
+
+  <p><%= contact.email %></p>
+  <h3><%= contact.mobile %></h3>
+</div>
+<%}) %> <% }else {%>
+
+<h1>No data found</h1>
+
+<% } %> <%- include("includes/footer") -%>

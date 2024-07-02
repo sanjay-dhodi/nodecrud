@@ -1,0 +1,69 @@
+<%- include("includes/header") -%>
+
+<div class="form-box">
+  <form id="contactForm" method="post">
+    <label for="">Name</label>
+    <input type="text" name="name" id="" />
+    <label for="">Email</label>
+    <input type="text" name="email" id="" />
+    <label for="">Mobile</label>
+    <input type="number" name="mobile" id="" />
+    <label for="">Profile</label>
+    <input type="file" name="image" id="" />
+    <input type="submit" value="save" class="btn" />
+  </form>
+</div>
+
+<div>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Mobile</th>
+      <th>image</th>
+      <th>action</th>
+    </tr>
+
+    <% if(data) { data.forEach(contacts => { %>
+
+    <tr>
+      <td><%=contacts.name %></td>
+      <td><%=contacts.email %></td>
+      <td><%=contacts.mobile %></td>
+      <td><%=contacts.image %></td>
+      <td>
+        <div class="crud-buttons">
+          <button class="edit" onclick="editContact('<%= contacts._id%>')">
+            edit
+          </button>
+          <button class="delete" onclick="deleteContact('<%= contacts._id%>')">
+            Delete
+          </button>
+        </div>
+      </td>
+    </tr>
+
+    <% })}else{%>
+
+    <tr>
+      <td>no data found</td>
+    </tr>
+
+    <% }%>
+  </table>
+</div>
+
+<script>
+  function deleteContact(id) {
+    const response = fetch("http://localhost:3000/api/contacts/delete/${id}", {
+      method: "delete",
+    });
+
+    console.log(response);
+  }
+  function editContact(id) {
+    console.log(id);
+  }
+</script>
+
+<%- include("includes/footer") -%>
