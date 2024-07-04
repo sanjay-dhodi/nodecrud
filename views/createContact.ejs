@@ -24,7 +24,7 @@
       <th>action</th>
     </tr>
 
-    <% if(data) { data.forEach(contacts => { %>
+    <% if(data.length > 1) { data.forEach(contacts => { %>
 
     <tr>
       <td><%=contacts.name %></td>
@@ -46,7 +46,7 @@
     <% })}else{%>
 
     <tr>
-      <td>no data found</td>
+      <td colspan="5">no data found</td>
     </tr>
 
     <% }%>
@@ -54,12 +54,13 @@
 </div>
 
 <script>
-  function deleteContact(id) {
-    const response = fetch("http://localhost:3000/api/contacts/delete/${id}", {
+ async function deleteContact(id) {
+    let url = `http://localhost:3000/api/contacts/delete/${id}`;
+    const response = await fetch(url, {
       method: "delete",
     });
 
-    console.log(response);
+    console.log(await response.json());
   }
   function editContact(id) {
     console.log(id);

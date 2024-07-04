@@ -87,10 +87,11 @@ table {
     margin-top: 3rem;
     width: 100%;
     border-collapse: collapse;
+    
 }
 th, td {
     padding: 12px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #ddd;
 }
 tr:nth-child(even) {

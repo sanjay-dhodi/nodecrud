@@ -1,5 +1,6 @@
 const contactModel = require("../models/contactModel");
 
+
 const createContact = async (req, resp, next) => {
   try {
     const data = req.body;
@@ -14,6 +15,7 @@ const createContact = async (req, resp, next) => {
 };
 
 const readContact = async (req, resp, next) => {
+  
   try {
     const contacts = await contactModel.find();
     if (!contacts) {
@@ -41,7 +43,7 @@ const getSingleContact = async (req, resp, next) => {
 
 const deleteContact = async (req, resp, next) => {
   try {
-    const deletedContact = await contactModel.findOneAndDelete(req.params.id);
+    const deletedContact = await contactModel.findByIdAndDelete(req.params.id);
 
     if (!deleteContact) {
       return resp.json("no contact found for delete");
@@ -68,6 +70,9 @@ const updateContact = async (req, resp, next) => {
   } catch (error) {
     next(error);
   }
+
+    
+
 };
 
 module.exports = {
