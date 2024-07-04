@@ -1,7 +1,7 @@
 <%- include("includes/header") -%>
 
 <div class="form-box">
-  <form id="contactForm" method="post">
+  <form id="contactForm" method="post" enctype="multipart/form-data">
     <label for="">Name</label>
     <input type="text" name="name" id="" />
     <label for="">Email</label>
@@ -24,13 +24,20 @@
       <th>action</th>
     </tr>
 
-    <% if(data.length > 1) { data.forEach(contacts => { %>
+    <% if(data.length> 0) { data.forEach(contacts => { %>
 
     <tr>
       <td><%=contacts.name %></td>
       <td><%=contacts.email %></td>
       <td><%=contacts.mobile %></td>
-      <td><%=contacts.image %></td>
+      <td>
+        <!-- demo image link -->
+        <img
+          src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2113030492.1720137600&semt=sph"
+          class="table-pic"
+          alt="image"
+        />
+      </td>
       <td>
         <div class="crud-buttons">
           <button class="edit" onclick="editContact('<%= contacts._id%>')">
@@ -54,16 +61,64 @@
 </div>
 
 <script>
- async function deleteContact(id) {
+  const contactForm = document.getElementById("contactForm");
+  contactForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    const response = await fetch("http://localhost:3000/api/create", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.ok) {
+      window.location.href = "/createContact";
+    }
+
+    if (!response.ok) {
+      // alert massage
+    }
+  });
+
+  async function deleteContact(id) {
     let url = `http://localhost:3000/api/contacts/delete/${id}`;
     const response = await fetch(url, {
       method: "delete",
     });
 
-    console.log(await response.json());
+    if (response.ok) {
+      window.location.href = "/createContact";
+    }
+
+    if (!response.ok) {
+      // alert massage
+    }
   }
-  function editContact(id) {
-    console.log(id);
+
+  async function editContact(id) {
+    let url = `http://localhost:3000/api/contacts/update/${id}`;
+
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "put",
+      body: JSON.stringify({
+        name: "dkm",
+        email: "sd@gmail.com",
+        mobile: 789654,
+        image: "s.jpg",
+      }),
+    });
+
+    if (response.ok) {
+      window.location.href = "/createContact";
+    }
+
+    if (!response.ok) {
+      // alert massage
+    }
   }
 </script>
 

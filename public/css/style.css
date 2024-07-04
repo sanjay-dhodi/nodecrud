@@ -50,7 +50,7 @@ header {
 
 
 
-img {
+.index-img {
     height: 100px;
     width: 100px;
     border-radius: 50%;
@@ -89,6 +89,14 @@ table {
     border-collapse: collapse;
     
 }
+
+.table-pic {
+    height: 30px;
+    width:30px;
+    border-radius: 50%;
+    
+}
+
 th, td {
     padding: 12px;
     text-align: center;
