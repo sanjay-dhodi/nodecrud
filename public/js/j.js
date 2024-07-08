@@ -14,12 +14,12 @@ createContactForm.addEventListener("submit", async function (e) {
       body: formData,
     });
 
-    // if (response.ok) {
-    //   window.location.href = "/editContact";
-    // }
+    if (response.ok) {
+      window.location.href = "/createContact";
+    }
 
-    // if (!response.ok) {
-    //   // alert massage
-    // }
+    if (!response.ok) {
+      // alert massage
+    }
   } catch (error) {}
 });

@@ -57,20 +57,22 @@ const deleteContact = async (req, resp, next) => {
 };
 const updateContact = async (req, resp, next) => {
   try {
-    console.log(req.body);
-    console.log(req.file);
+    const formInput = req.body;
+    const imageFile = req.file.filename;
 
-    // const updatedContact = await contactModel.findByIdAndUpdate(
-    //   req.params.id,
-    //   { $set: req.body },
-    //   { new: true }
-    // );
+    const data = { ...formInput, imageFile };
 
-    // if (!updatedContact) {
-    //   return resp.json("failed to update");
-    // }
+    const updatedContact = await contactModel.findByIdAndUpdate(
+      req.params.id,
+      { $set: data },
+      { new: true }
+    );
 
-    // resp.json(updatedContact);
+    if (!updatedContact) {
+      return resp.json("failed to update");
+    }
+
+    resp.json(updatedContact);
   } catch (error) {
     next(error);
   }
