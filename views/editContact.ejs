@@ -1,0 +1,22 @@
+<%- include("includes/header") -%> <% if(data) { %>
+
+<div class="form-box">
+  <form id="contactForm" enctype="multipart/form-data">
+    <input type="text" id="id" hidden value="<%=data._id %>" />
+    <label for="">Name</label>
+    <input type="text" value="<%=data.name %>" name="name" id="" />
+    <label for="">Email</label>
+    <input type="text" value="<%=data.email %>" name="email" id="" />
+    <label for="">Mobile</label>
+    <input type="number" value="<%=data.number %>" name="mobile" id="" />
+    <label for="">Profile</label>
+    <input type="file" name="image" id="" />
+    <input type="submit" value="UPDATE" class="btn" />
+  </form>
+</div>
+
+<% } %>
+
+<script src="/js/j.js"></script>
+
+<%- include("includes/footer") -%>

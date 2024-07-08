@@ -40,9 +40,7 @@
       </td>
       <td>
         <div class="crud-buttons">
-          <button class="edit" onclick="editContact('<%= contacts._id%>')">
-            edit
-          </button>
+          <a href="/updateContact/<%= contacts._id%>"><button class="edit">edit</button></a>
           <button class="delete" onclick="deleteContact('<%= contacts._id%>')">
             Delete
           </button>
@@ -61,8 +59,8 @@
 </div>
 
 <script>
-  const contactForm = document.getElementById("contactForm");
-  contactForm.addEventListener("submit", async function (e) {
+  const createContactForm = document.getElementById("contactForm");
+  createContactForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const formData = new FormData(this);
@@ -85,31 +83,6 @@
     let url = `http://localhost:3000/api/contacts/delete/${id}`;
     const response = await fetch(url, {
       method: "delete",
-    });
-
-    if (response.ok) {
-      window.location.href = "/createContact";
-    }
-
-    if (!response.ok) {
-      // alert massage
-    }
-  }
-
-  async function editContact(id) {
-    let url = `http://localhost:3000/api/contacts/update/${id}`;
-
-    const response = await fetch(url, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "put",
-      body: JSON.stringify({
-        name: "dkm",
-        email: "sd@gmail.com",
-        mobile: 789654,
-        image: "s.jpg",
-      }),
     });
 
     if (response.ok) {
