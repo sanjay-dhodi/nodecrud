@@ -1,18 +1,25 @@
 const contactModel = require("../models/contactModel");
+const { validationResult } = require("express-validator");
 
 const createContact = async (req, resp, next) => {
-  try {
-    const data = req.body;
+  const result = validationResult(req);
 
-    const image = req.file.filename;
-    const dataForDb = { ...data, image };
+  if (!result.isEmpty()) {
+    console.log(result.errors);
+  } else {
+    try {
+      const data = req.body;
 
-    const saveData = new contactModel(dataForDb);
-    const response = await saveData.save();
+      const image = req.file.filename;
+      const dataForDb = { ...data, image };
 
-    resp.json(response);
-  } catch (error) {
-    next(error);
+      const saveData = new contactModel(dataForDb);
+      const response = await saveData.save();
+
+      resp.json(response);
+    } catch (error) {
+      next(error);
+    }
   }
 };
 
@@ -56,25 +63,31 @@ const deleteContact = async (req, resp, next) => {
   }
 };
 const updateContact = async (req, resp, next) => {
-  try {
-    const formInput = req.body;
-    const imageFile = req.file.filename;
+  const result = validationResult(req);
 
-    const data = { ...formInput, imageFile };
+  if (!result.isEmpty()) {
+    console.log(result.errors);
+  } else {
+    try {
+      const formInput = req.body;
+      const imageFile = req.file.filename;
 
-    const updatedContact = await contactModel.findByIdAndUpdate(
-      req.params.id,
-      { $set: data },
-      { new: true }
-    );
+      const data = { ...formInput, imageFile };
 
-    if (!updatedContact) {
-      return resp.json("failed to update");
+      const updatedContact = await contactModel.findByIdAndUpdate(
+        req.params.id,
+        { $set: data },
+        { new: true }
+      );
+
+      if (!updatedContact) {
+        return resp.json("failed to update");
+      }
+
+      resp.json(updatedContact);
+    } catch (error) {
+      next(error);
     }
-
-    resp.json(updatedContact);
-  } catch (error) {
-    next(error);
   }
 };
 

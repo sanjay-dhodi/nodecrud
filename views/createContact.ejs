@@ -40,7 +40,9 @@
       </td>
       <td>
         <div class="crud-buttons">
-          <a href="/updateContact/<%= contacts._id%>"><button class="edit">edit</button></a>
+          <a href="/updateContact/<%= contacts._id%>"
+            ><button class="edit">edit</button></a
+          >
           <button class="delete" onclick="deleteContact('<%= contacts._id%>')">
             Delete
           </button>
@@ -65,33 +67,41 @@
 
     const formData = new FormData(this);
 
-    const response = await fetch("http://localhost:3000/api/create", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const response = await fetch("http://localhost:3000/api/create", {
+        method: "POST",
+        body: formData,
+      });
 
-    if (response.ok) {
-      window.location.href = "/createContact";
-    }
+      if (response.ok) {
+        window.location.href = "/createContact";
+      }
 
-    if (!response.ok) {
-      // alert massage
+      if (!response.ok) {
+        // alert massage
+      }
+    } catch (error) {
+      console.log(error);
     }
   });
 
-  async function deleteContact(id) {
-    let url = `http://localhost:3000/api/contacts/delete/${id}`;
-    const response = await fetch(url, {
-      method: "delete",
-    });
+  try {
+    async function deleteContact(id) {
+      let url = `http://localhost:3000/api/contacts/delete/${id}`;
+      const response = await fetch(url, {
+        method: "delete",
+      });
 
-    if (response.ok) {
-      window.location.href = "/createContact";
-    }
+      if (response.ok) {
+        window.location.href = "/createContact";
+      }
 
-    if (!response.ok) {
-      // alert massage
+      if (!response.ok) {
+        // alert massage
+      }
     }
+  } catch (error) {
+    console.log(error);
   }
 </script>
 

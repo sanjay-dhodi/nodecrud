@@ -21,5 +21,7 @@ createContactForm.addEventListener("submit", async function (e) {
     if (!response.ok) {
       // alert massage
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 });
