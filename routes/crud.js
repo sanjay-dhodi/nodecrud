@@ -3,13 +3,14 @@ const router = express.Router();
 const crudContoller = require("../controllers/crud_controller");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
+
 const { body } = require("express-validator");
 const validator = [
   body("name")
     .trim()
     .notEmpty()
     .withMessage("name is required")
-    .isLength({ max: 8 })
+    .isLength({ max: 12 })
     .withMessage("only max 8 charector long name allowed")
     .escape(),
   body("email")
@@ -23,11 +24,9 @@ const validator = [
     .withMessage("mobile is required")
     .isNumeric()
     .withMessage("number field must be number")
-    .length({ max: 10, min: 10 })
+    .isLength({ min: 10, max: 10 })
+    .withMessage("please enter valid mobile number")
     .escape(),
-
-  // pending image field validation
-  // body("image").custom();
 ];
 
 router.post(
@@ -42,6 +41,7 @@ router.delete("/api/contacts/delete/:id", crudContoller.deleteContact);
 router.put(
   "/api/contacts/update/:id",
   upload.single("image"),
+  validator,
   crudContoller.updateContact
 );
 

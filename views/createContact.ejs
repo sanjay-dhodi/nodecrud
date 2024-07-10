@@ -85,8 +85,8 @@
     }
   });
 
-  try {
-    async function deleteContact(id) {
+  async function deleteContact(id) {
+    try {
       let url = `http://localhost:3000/api/contacts/delete/${id}`;
       const response = await fetch(url, {
         method: "delete",
@@ -99,9 +99,9 @@
       if (!response.ok) {
         // alert massage
       }
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
   }
 </script>
 
