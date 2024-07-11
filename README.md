@@ -4,10 +4,7 @@ This is ongoing project for practise
 
 **Features**
 
-create contact 
-update contact
-delete contact
-read contact
+crud
 
 **What i learn ?**
 
