@@ -4,7 +4,7 @@ This is ongoing project for practise
 
 **Features**
 
-crud
+create , read , update , delete
 
 **What i learn ?**
 
