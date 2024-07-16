@@ -2,10 +2,12 @@ const contactModel = require("../models/contactModel");
 const { validationResult } = require("express-validator");
 
 const createContact = async (req, resp, next) => {
+  console.log(req.body);
+
   const result = validationResult(req);
 
   if (!result.isEmpty()) {
-    console.log(result.errors);
+    console.log(result);
   } else {
     try {
       const data = req.body;

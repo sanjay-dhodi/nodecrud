@@ -7,30 +7,35 @@ const upload = multer({ dest: "uploads/" });
 const { body } = require("express-validator");
 const validator = [
   body("name")
-    .trim()
     .notEmpty()
-    .withMessage("name is required")
+    .withMessage("name is empty")
     .isLength({ max: 12 })
-    .withMessage("only max 8 charector long name allowed")
+    .withMessage("only max 12  charector long name allowed")
     .escape(),
   body("email")
     .notEmpty()
-    .withMessage("email is required")
+    .withMessage("email is empty")
     .isEmail()
-    .withMessage("please enter valid email")
-    .escape(),
+    .withMessage("please enter valid email"),
   body("mobile")
     .notEmpty()
-    .withMessage("mobile is required")
+    .withMessage("mobile is empty")
     .isNumeric()
     .withMessage("number field must be number")
-    .isLength({ min: 10, max: 10 })
-    .withMessage("please enter valid mobile number")
+    .isLength({ min: 5, max: 10 })
+    .withMessage("please enter valid mobile number 5 to 10")
     .escape(),
+  body("image").custom((value, { req }) => {
+    if (!req.file) {
+      throw new Error("image field is empty");
+    }
+    return true;
+  }),
 ];
 
 router.post(
   "/api/create",
+
   upload.single("image"),
   validator,
   crudContoller.createContact
@@ -40,8 +45,10 @@ router.get("/api/contacts/:id", crudContoller.getSingleContact);
 router.delete("/api/contacts/delete/:id", crudContoller.deleteContact);
 router.put(
   "/api/contacts/update/:id",
+
   upload.single("image"),
   validator,
+
   crudContoller.updateContact
 );
 

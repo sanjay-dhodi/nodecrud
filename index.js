@@ -6,14 +6,13 @@ const mongoose = require("mongoose");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 
-
 const renderPageRoutes = require("./routes/renderPage");
 const crudRoutes = require("./routes/crud");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(express.json());
 
 app.use(renderPageRoutes);
 app.use(crudRoutes);
