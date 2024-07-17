@@ -1,23 +1,29 @@
 const express = require("express");
 const router = express.Router();
 const crudContoller = require("../controllers/crud_controller");
-const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+// const multer = require("multer");
+// const upload = multer({ dest: "uploads/" });
+
+const upload = require("../utility/multer_filefilter")
+
 
 const { body } = require("express-validator");
 const validator = [
   body("name")
+    .trim()
     .notEmpty()
     .withMessage("name is empty")
     .isLength({ max: 12 })
     .withMessage("only max 12  charector long name allowed")
     .escape(),
   body("email")
+    .trim()
     .notEmpty()
     .withMessage("email is empty")
     .isEmail()
     .withMessage("please enter valid email"),
   body("mobile")
+    .trim()
     .notEmpty()
     .withMessage("mobile is empty")
     .isNumeric()

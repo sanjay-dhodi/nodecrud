@@ -1,5 +1,7 @@
 const contactModel = require("../models/contactModel");
 const { validationResult } = require("express-validator");
+const path = require("path");
+const fs = require("fs");
 
 const createContact = async (req, resp, next) => {
   console.log(req.body);
@@ -57,6 +59,12 @@ const deleteContact = async (req, resp, next) => {
 
     if (!deletedContact) {
       return resp.json("no contact found for delete");
+    }
+
+    const imagePath = path.join("public", "images", deletedContact.image);
+
+    if (fs.existsSync(imagePath)) {
+      await fs.promises.unlink(imagePath);
     }
 
     resp.json({ message: "deleted successfully", contact: deletedContact });
