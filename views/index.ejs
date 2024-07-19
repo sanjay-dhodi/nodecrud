@@ -1,16 +1,9 @@
-<%- include("includes/header") -%>
-
-
-
-<% if(data.length > 0 ) { data.forEach(contact => { %>
+<%- include("includes/header") -%> <% if(data.length > 0 ) {
+data.forEach(contact => { %>
 
 <div class="card">
   <!-- demo image  -->
-  <img
-    src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=338&ext=jpg&ga=GA1.1.2113030492.1720137600&semt=sph"
-    class="index-img"
-    alt="img"
-  />
+  <img src="images/<%= contact.image %>" class="index-img" alt="img" />
   <h1><%= contact.name %></h1>
 
   <p><%= contact.email %></p>

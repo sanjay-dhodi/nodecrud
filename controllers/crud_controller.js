@@ -4,8 +4,6 @@ const path = require("path");
 const fs = require("fs");
 
 const createContact = async (req, resp, next) => {
-  console.log(req.body);
-
   const result = validationResult(req);
 
   if (!result.isEmpty()) {
